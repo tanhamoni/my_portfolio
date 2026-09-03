@@ -12,7 +12,7 @@
                         <div class="content-wrapper">
 
                             <h1 class="hero-title">
-                                I'm {{ $setting->name }}
+                                Hi,I'm {{ $setting->name }}
                                 <span class="typed" data-typed-items="{{ $setting->typed_text }}">
                                 </span>
                             </h1>
@@ -47,7 +47,7 @@
                                     </span>
                                 </div>
 
-                                <div class="stat-item">
+                                {{-- <div class="stat-item">
                                     <span class="purecounter" data-purecounter-start="0"
                                         data-purecounter-end="{{ $setting->happy_clients }}" data-purecounter-duration="2">
                                         0
@@ -56,7 +56,7 @@
                                     <span class="stat-label">
                                         Happy Clients
                                     </span>
-                                </div>
+                                </div> --}}
 
                             </div>
 
