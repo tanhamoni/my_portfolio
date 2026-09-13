@@ -42,11 +42,11 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
-# Build phase: SQLite ডাটাবেস তৈরি ও সম্পূর্ণ মাইগ্রেশন নিশ্চিত করা
+# Build phase: Force SQLite connection explicitly to avoid MySQL port errors
 RUN mkdir -p /var/www/html/database \
     && touch /var/www/html/database/database.sqlite \
     && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
-    && php artisan migrate:fresh --seed --force
+    && DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite php artisan migrate:fresh --seed --force
 
 # Give execution permission to entrypoint script
 RUN chmod +x /var/www/html/entrypoint.sh
