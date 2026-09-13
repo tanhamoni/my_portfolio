@@ -42,18 +42,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
-# Set environment variables for build
-ENV DB_CONNECTION=sqlite
-ENV DB_DATABASE=/var/www/html/database/database.sqlite
-ENV LOG_CHANNEL=stderr
-
-# Create sqlite database and run migrations safely
-RUN mkdir -p /var/www/html/database \
-    && touch /var/www/html/database/database.sqlite \
-    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
-    && php artisan config:clear \
-    && php artisan migrate:fresh --seed --force
-
 # Give execution permission to entrypoint script
 RUN chmod +x /var/www/html/entrypoint.sh
 
