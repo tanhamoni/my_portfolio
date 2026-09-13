@@ -1,3 +1,4 @@
+
 FROM php:8.2-apache
 
 # Install system dependencies & SQLite extension
@@ -32,15 +33,7 @@ COPY . .
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
-
-# Create SQLite Database Directory & Set Permissions
-RUN mkdir -p database \
-    && touch database/database.sqlite \
-    && chown -R www-data:www-data storage bootstrap/cache database \
-    && chmod -R 777 storage bootstrap/cache database database/database.sqlite
 
 # Apache document root → Laravel public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -50,7 +43,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
+# Give execution permission to entrypoint script
+RUN chmod +x /var/www/html/entrypoint.sh
+
 EXPOSE 80
 
-# Start App & Run Migrations on Launch
-CMD sh -c "php artisan migrate --force && apache2-foreground"
+ENTRYPOINT ["/var/www/html/entrypoint.sh"]
