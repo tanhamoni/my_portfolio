@@ -1,17 +1,24 @@
 #!/bin/bash
 
-# Folder & log permissions
-mkdir -p /var/www/html/storage/logs /var/www/html/storage/framework/views /var/www/html/storage/framework/sessions /var/www/html/storage/framework/cache /var/www/html/database
+# Force Laravel to send logs directly to Docker/Render stdout/stderr
+export LOG_CHANNEL=stderr
 
-# Delete corrupt file and create clean sqlite file
+# Create required directories
+mkdir -p /var/www/html/database \
+         /var/www/html/storage/framework/views \
+         /var/www/html/storage/framework/sessions \
+         /var/www/html/storage/framework/cache
+
+# Delete corrupted sqlite file and initialize a fresh valid PDO SQLite database
 rm -f /var/www/html/database/database.sqlite
 php -r "new PDO('sqlite:/var/www/html/database/database.sqlite');"
 
-# Set permissions
-chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
-
-# Force clean migration and seed
+# Run migrations and seeders BEFORE setting Apache ownership
 php artisan migrate:fresh --seed --force
 
-# Start Apache
+# Set directory permissions for www-data user
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+
+# Start Apache web server
 exec apache2-foreground
