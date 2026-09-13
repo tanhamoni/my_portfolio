@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install system dependencies & SQLite extension
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -9,10 +9,13 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libonig-dev \
+    sqlite3 \
+    libsqlite3-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
+        pdo_sqlite \
         mbstring \
         zip \
         gd \
@@ -33,9 +36,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Laravel permissions
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+# Create SQLite Database File & Set Permissions
+RUN mkdir -p database \
+    && touch database/database.sqlite \
+    && chown -R www-data:www-data storage bootstrap/cache database \
+    && chmod -R 777 storage bootstrap/cache database database/database.sqlite
+
+# Run Database Migrations and Seeders automatically
+RUN php artisan migrate:fresh --seed --force
 
 # Apache document root → Laravel public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
