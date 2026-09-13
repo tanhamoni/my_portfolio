@@ -1,18 +1,20 @@
 #!/bin/bash
-set -e
 
-# Make sure database folder and file exist
-mkdir -p /var/www/html/database
+# Folder & File preparation
+mkdir -p /var/www/html/database /var/www/html/storage/logs /var/www/html/storage/framework/views /var/www/html/storage/framework/sessions /var/www/html/storage/framework/cache
 touch /var/www/html/database/database.sqlite
 
-# Full permissions for SQLite database & Storage
+# Full permissions
 chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Run artisan commands with explicit database path
-php artisan migrate:fresh --seed --force --database=sqlite
+# Force SQLite connection explicitly & run migrations
+DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite php artisan migrate --force
 
-# Re-apply permissions just in case
-chmod -R 777 /var/www/html/database
+# Seed database tables
+DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite php artisan db:seed --force
+
+# Ensure file ownership for Apache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
 # Start Apache
 exec apache2-foreground
