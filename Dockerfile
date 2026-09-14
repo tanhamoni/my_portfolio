@@ -42,6 +42,16 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
+# Create necessary directories and fix storage/database ownership & permissions
+RUN mkdir -p /var/www/html/storage/logs \
+    /var/www/html/storage/framework/views \
+    /var/www/html/storage/framework/sessions \
+    /var/www/html/storage/framework/cache \
+    /var/www/html/database \
+    && touch /var/www/html/database/database.sqlite \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
+    && chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+
 # Give execution permission to entrypoint script
 RUN chmod +x /var/www/html/entrypoint.sh
 
