@@ -1,5 +1,7 @@
 <?php
 
+
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Frontend\FrontendController;
@@ -202,7 +204,11 @@ Route::get('/messages/delete/{id}', [ContactMessageController::class, 'delete'])
 
 
 
+
 Route::get('/fix-db', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed --force');
-    return "Database table created successfully!";
+    Artisan::call('migrate:fresh', [
+        '--seed' => true,
+        '--force' => true,
+    ]);
+    return 'Database migrated and seeded successfully!';
 });
