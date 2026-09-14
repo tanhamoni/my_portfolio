@@ -192,3 +192,17 @@ Route::get('/messages/delete/{id}', [ContactMessageController::class, 'delete'])
     ->name('messages.delete');
 
 });
+
+
+
+
+
+
+
+
+
+
+Route::get('/fix-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed --force');
+    return "Database table created successfully!";
+});
