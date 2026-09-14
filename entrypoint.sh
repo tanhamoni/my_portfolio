@@ -1,24 +1,21 @@
 #!/bin/bash
 
-# Ensure storage directories exist
-mkdir -p /var/www/html/storage/logs
-mkdir -p /var/www/html/storage/framework/views
-mkdir -p /var/www/html/storage/framework/sessions
-mkdir -p /var/www/html/storage/framework/cache
-mkdir -p /var/www/html/database
+# Force Laravel to write logs to Docker output (No laravel.log file needed)
+export LOG_CHANNEL=stderr
 
-# Create SQLite database file if missing
+# Ensure Database directory exists
+mkdir -p /var/www/html/database
 touch /var/www/html/database/database.sqlite
 
-# Clear caches
+# Full permission for Database and Storage
+chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+
+# Clear Caches
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
-# Fix permissions for Apache user
-chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
-
-# Run Database Migrations & Seeders
+# Force Database Migration & Seeding
 php artisan migrate:fresh --seed --force
 
 # Start Apache
