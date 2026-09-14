@@ -8,19 +8,24 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-
-            $table->timestamps();
-
-        });
+        // projects টেবিলটি ডাটাবেসে তৈরি থাকলে এবং created_at কলাম না থাকলেই কেবল এটি যোগ করবে
+        if (Schema::hasTable('projects')) {
+            Schema::table('projects', function (Blueprint $table) {
+                if (!Schema::hasColumn('projects', 'created_at')) {
+                    $table->timestamps();
+                }
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-
-            $table->dropTimestamps();
-
-        });
+        if (Schema::hasTable('projects')) {
+            Schema::table('projects', function (Blueprint $table) {
+                if (Schema::hasColumn('projects', 'created_at')) {
+                    $table->dropTimestamps();
+                }
+            });
+        }
     }
 };
