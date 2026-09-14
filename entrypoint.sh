@@ -1,24 +1,26 @@
 #!/bin/bash
 
-# Force logs to Docker console
+# Redirect Laravel logs to Docker STDOUT/STDERR (Bypasses file permission issues)
 export LOG_CHANNEL=stderr
 
-# Create fresh database file on boot
+# Ensure Database directory and file exist
 mkdir -p /var/www/html/database
-rm -f /var/www/html/database/database.sqlite
-touch /var/www/html/database/database.sqlite
+if [ ! -f /var/www/html/database/database.sqlite ]; then
+    touch /var/www/html/database/database.sqlite
+fi
 
-# Full permissions to avoid any file block
+# Ensure maximum permissions on runtime directories
 chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Clear all Laravel caches
+# Clear any cached configurations
 php artisan config:clear
 php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 
-# Execute Database Migrations and Seeders FORCEFULLY
-php artisan migrate:fresh --force --seed
+# Execute Database Migration and Seeding
+php artisan migrate:fresh --seed --force
 
-# Boot Apache Server
+# Launch Apache in the foreground
 exec apache2-foreground
