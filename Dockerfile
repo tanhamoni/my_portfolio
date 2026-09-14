@@ -15,10 +15,10 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . .
 
-# Install Composer packages with timeout fix and source fallback
+# Install Composer packages using Git Clone fallback to bypass GitHub Zip 504 errors
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-ENV COMPOSER_PROCESS_TIMEOUT=600
-RUN composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
+ENV COMPOSER_PROCESS_TIMEOUT=1200
+RUN composer install --no-dev --optimize-autoloader --prefer-source --no-interaction
 
 # Set Apache Document Root to Laravel public directory
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
