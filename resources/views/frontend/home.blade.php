@@ -98,11 +98,12 @@
                                     </a>
                                 @endif
 
-             @if ($setting->whatsapp)
-    <a href="{{ $setting->whatsapp }}" target="_blank" rel="noopener">
-        <i class="bi bi-whatsapp"></i>
-    </a>
-@endif
+                                @if ($setting->whatsapp)
+                                    <a href="{{ $setting->whatsapp }}" target="_blank" rel="noopener">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                @endif
+
                             </div>
 
                         </div>
@@ -149,6 +150,7 @@
             </div>
 
         </section>
+
         <!-- About Section -->
         <section id="about" class="about section">
 
@@ -160,7 +162,8 @@
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-                <div class="row align-items-center">
+                {{-- align-items-start: ছবি কলামের উপর থেকে শুরু হবে --}}
+                <div class="row align-items-start">
 
                     <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
 
@@ -227,6 +230,7 @@
                                 @endforeach
 
                             </div>
+
                             <div class="faq-section" data-aos="fade-up" data-aos-delay="300">
 
                                 <!-- Section Header Start -->
@@ -235,9 +239,9 @@
                                     <p style="color: #666; font-size: 15px;">"Strategic insights into my development
                                         process, code quality, and long-term scalability."</p>
                                 </div>
-                                <!-- Section Header End →
+                                <!-- Section Header End -->
 
-                                       <!-FAQ 01 -->
+                                <!-- FAQ 01 -->
                                 <div class="faq-item">
                                     <div class="faq-question">
                                         <span>01. Why should I choose you over other developers?</span>
@@ -247,7 +251,7 @@
                                     <div class="faq-answer">
                                         "I don’t just write code; I focus on your business goals.
                                         I build high-performing,lightning-fast and conversion-optimized websites that turn
-                                        visitors into paying customers. Plus, you get lifetime clen code structure,
+                                        visitors into paying customers. Plus, you get lifetime clean code structure,
                                         transparent communication and post-launch support that keeps your site stress-free."
                                     </div>
                                 </div>
@@ -261,7 +265,6 @@
                                     </div>
 
                                     <div class="faq-answer">
-
 
                                         <strong>My process is fully transparent and hassle-free:</strong><br><br>
 
@@ -380,6 +383,7 @@
 
         </section>
 
+        <!-- Skills Section -->
         <section id="skills" class="skills section">
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -488,6 +492,7 @@
             </div>
 
         </section>
+
         <!-- Resume Section -->
         <section id="resume" class="resume section">
 
@@ -614,9 +619,7 @@
             </div>
 
         </section>
-        <!-- =======================
-                         Portfolio Section
-                    ======================= -->
+
         <!-- Portfolio Section -->
         <section id="portfolio" class="my-portfolio section py-5">
 
