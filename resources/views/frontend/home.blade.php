@@ -12,20 +12,20 @@
                         <div class="content-wrapper">
 
                             <h1 class="hero-title">
-                                Hi,I'm {{ $setting->name }}
-                                <span class="typed" data-typed-items="{{ $setting->typed_text }}">
+                                Hi, I'm {{ $setting?->name }}
+                                <span class="typed" data-typed-items="{{ $setting?->typed_text }}">
                                 </span>
                             </h1>
 
                             <p class="lead">
-                                {{ $setting->hero_description }}
+                                {{ $setting?->hero_description }}
                             </p>
 
                             <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
 
                                 <div class="stat-item">
                                     <span class="purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="{{ $setting->projects_completed }}"
+                                        data-purecounter-end="{{ $setting?->projects_completed }}"
                                         data-purecounter-duration="2">
                                         0
                                     </span>
@@ -37,7 +37,7 @@
 
                                 <div class="stat-item">
                                     <span class="purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="{{ $setting->years_experience }}"
+                                        data-purecounter-end="{{ $setting?->years_experience }}"
                                         data-purecounter-duration="2">
                                         0
                                     </span>
@@ -49,7 +49,7 @@
 
                                 {{-- <div class="stat-item">
                                     <span class="purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="{{ $setting->happy_clients }}" data-purecounter-duration="2">
+                                        data-purecounter-end="{{ $setting?->happy_clients }}" data-purecounter-duration="2">
                                         0
                                     </span>
 
@@ -74,32 +74,32 @@
 
                             <div class="social-links" data-aos="fade-up" data-aos-delay="400">
 
-                                @if ($setting->facebook)
-                                    <a href="{{ $setting->facebook }}" target="_blank">
+                                @if ($setting?->facebook)
+                                    <a href="{{ $setting?->facebook }}" target="_blank">
                                         <i class="bi bi-facebook"></i>
                                     </a>
                                 @endif
 
-                                @if ($setting->twitter)
-                                    <a href="{{ $setting->twitter }}" target="_blank">
+                                @if ($setting?->twitter)
+                                    <a href="{{ $setting?->twitter }}" target="_blank">
                                         <i class="bi bi-twitter"></i>
                                     </a>
                                 @endif
 
-                                @if ($setting->github)
-                                    <a href="{{ $setting->github }}" target="_blank">
+                                @if ($setting?->github)
+                                    <a href="{{ $setting?->github }}" target="_blank">
                                         <i class="bi bi-github"></i>
                                     </a>
                                 @endif
 
-                                @if ($setting->linkedin)
-                                    <a href="{{ $setting->linkedin }}" target="_blank">
+                                @if ($setting?->linkedin)
+                                    <a href="{{ $setting?->linkedin }}" target="_blank">
                                         <i class="bi bi-linkedin"></i>
                                     </a>
                                 @endif
 
-                                @if ($setting->whatsapp)
-                                    <a href="{{ $setting->whatsapp }}" target="_blank" rel="noopener">
+                                @if ($setting?->whatsapp)
+                                    <a href="{{ $setting?->whatsapp }}" target="_blank" rel="noopener">
                                         <i class="bi bi-whatsapp"></i>
                                     </a>
                                 @endif
@@ -117,24 +117,24 @@
 
                                 <div class="floating-card card-1" data-aos="zoom-in" data-aos-delay="300">
                                     <i class="bi bi-palette"></i>
-                                    <span>{{ $setting->card_one }}</span>
+                                    <span>{{ $setting?->card_one }}</span>
                                 </div>
 
                                 <div class="floating-card card-2" data-aos="zoom-in" data-aos-delay="400">
                                     <i class="bi bi-code-slash"></i>
-                                    <span>{{ $setting->card_two }}</span>
+                                    <span>{{ $setting?->card_two }}</span>
                                 </div>
 
                                 <div class="floating-card card-3" data-aos="zoom-in" data-aos-delay="500">
                                     <i class="bi bi-lightning"></i>
-                                    <span>{{ $setting->card_three }}</span>
+                                    <span>{{ $setting?->card_three }}</span>
                                 </div>
 
                             </div>
 
-                            @if ($setting->profile_image)
-                                <img src="{{ asset('uploads/profile/' . $setting->profile_image) }}"
-                                    alt="{{ $setting->name }}" class="img-fluid hero-main-image">
+                            @if ($setting?->profile_image)
+                                <img src="{{ asset('uploads/profile/' . $setting?->profile_image) }}"
+                                    alt="{{ $setting?->name }}" class="img-fluid hero-main-image">
                             @else
                                 <img src="{{ asset('assets/img/profile/pic.jpg') }}" alt="Portfolio Hero"
                                     class="img-fluid hero-main-image">
@@ -157,7 +157,7 @@
             <!-- Section Title -->
             <div class="container section-title">
                 <h2>About</h2>
-                <p>{{ $setting->designation ?? 'Full Stack Developer' }}</p>
+                <p>{{ $setting?->designation ?? 'Full Stack Developer' }}</p>
             </div>
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -171,9 +171,9 @@
 
                             <div class="profile-image">
 
-                                @if (!empty($setting->about_image))
-                                    <img src="{{ asset('uploads/profile/' . $setting->about_image) }}"
-                                        alt="{{ $setting->name }}" class="img-fluid">
+                                @if (!empty($setting?->about_image))
+                                    <img src="{{ asset('uploads/profile/' . $setting?->about_image) }}"
+                                        alt="{{ $setting?->name }}" class="img-fluid">
                                 @else
                                     <img src="{{ asset('assets/img/profile/pic.jpg') }}" alt="Profile" class="img-fluid">
                                 @endif
@@ -201,11 +201,11 @@
                             <div class="intro">
 
                                 <h2>
-                                    Hi, I'm {{ $setting->name ?? 'Tanha Moni' }}
+                                    Hi, I'm {{ $setting?->name ?? 'Tanha Moni' }}
                                 </h2>
 
                                 <p>
-                                    {{ $setting->about_description ?? '' }}
+                                    {{ $setting?->about_description ?? '' }}
                                 </p>
 
                             </div>
@@ -347,25 +347,25 @@
                                     <span class="emoji">🚀</span>
 
                                     <span class="text">
-                                        {{ $setting->fun_fact ?? 'Code-driven learner based in Bhola' }}
+                                        {{ $setting?->fun_fact ?? 'Code-driven learner based in Bhola' }}
                                     </span>
 
                                 </div>
 
                                 <div class="action-buttons">
 
-                                    <a href="{{ $setting->button_link ?? '#portfolio' }}" class="btn btn-primary">
+                                    <a href="{{ $setting?->button_link ?? '#portfolio' }}" class="btn btn-primary">
 
-                                        {{ $setting->button_text ?? 'View My Work' }}
+                                        {{ $setting?->button_text ?? 'View My Work' }}
 
                                     </a>
 
-                                    @if (!empty($setting->resume_file))
-                                        <a href="{{ asset('uploads/resume/' . $setting->resume_file) }}"
+                                    @if (!empty($setting?->resume_file))
+                                        <a href="{{ asset('uploads/resume/' . $setting?->resume_file) }}"
                                             class="btn btn-outline" target="_blank">
 
                                             <i class="bi bi-file-earmark-pdf"></i>
-                                            {{ $setting->resume_button_text ?? 'View Resume' }}
+                                            {{ $setting?->resume_button_text ?? 'View Resume' }}
 
                                         </a>
                                     @endif
@@ -795,7 +795,7 @@
                             <h3>Contact Info</h3>
 
                             <p>
-                                {{ $contact->contact_description ?? 'Feel free to contact me anytime.' }}
+                                {{ $contact?->contact_description ?? 'Feel free to contact me anytime.' }}
                             </p>
 
                             <!-- Location -->
@@ -807,9 +807,9 @@
                                 <div class="content">
                                     <h4>Location</h4>
 
-                                    <p>{{ $contact->location ?? '' }}</p>
+                                    <p>{{ $contact?->location ?? '' }}</p>
 
-                                    <p>{{ $contact->country ?? '' }}</p>
+                                    <p>{{ $contact?->country ?? '' }}</p>
                                 </div>
                             </div>
 
@@ -822,7 +822,7 @@
                                 <div class="content">
                                     <h4>Phone Number</h4>
 
-                                    <p>{{ $contact->phone ?? '' }}</p>
+                                    <p>{{ $contact?->phone ?? '' }}</p>
 
                                     @if ($contact && $contact->phone2)
                                         <p>{{ $contact->phone2 }}</p>
@@ -840,7 +840,7 @@
                                 <div class="content">
                                     <h4>Email Address</h4>
 
-                                    <p>{{ $contact->email ?? '' }}</p>
+                                    <p>{{ $contact?->email ?? '' }}</p>
 
                                     @if ($contact && $contact->email2)
                                         <p>{{ $contact->email2 }}</p>
@@ -857,10 +857,10 @@
 
                         <div class="contact-form">
 
-                            <h3>{{ $contact->form_title ?? 'Get In Touch' }}</h3>
+                            <h3>{{ $contact?->form_title ?? 'Get In Touch' }}</h3>
 
                             <p>
-                                {{ $contact->form_description ?? 'Send me a message and I will reply as soon as possible.' }}
+                                {{ $contact?->form_description ?? 'Send me a message and I will reply as soon as possible.' }}
                             </p>
 
                             <form action="{{ route('contact.send') }}" method="POST">
