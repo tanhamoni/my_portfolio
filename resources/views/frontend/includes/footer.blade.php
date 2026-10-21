@@ -31,17 +31,15 @@
             <a href="https://www.linkedin.com/in/tanha-moni-085541422/" target="_blank">
                 <i class="bi bi-linkedin"></i>
             </a>
-            
-<!-- WhatsApp -->
-@if ($setting->whatsapp)
-    <a href="{{ $setting->whatsapp }}" target="_blank" rel="noopener">
-        <i class="bi bi-whatsapp"></i>
-    </a>
-@endif
+
+            <!-- WhatsApp -->
+            @if ($setting?->whatsapp)
+                <a href="{{ $setting?->whatsapp }}" target="_blank" rel="noopener">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+            @endif
 
         </div>
-
-     
 
     </div>
 
