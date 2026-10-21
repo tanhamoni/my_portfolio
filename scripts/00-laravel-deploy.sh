@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
-echo "Running composer"
-composer install --no-dev --working-dir=/var/www/html
 
-# Storage and Cache Permission Fix
-chmod -R 777 /var/www/html/storage
-chmod -R 777 /var/www/html/bootstrap/cache
-
+# Clear cache to fix 404 errors
+php artisan route:clear
 php artisan config:clear
+php artisan view:clear
 php artisan cache:clear
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+
+# Database migration, storage linking, and seeding
 php artisan migrate --force
-
-
+php artisan storage:link
 php artisan db:seed --force
