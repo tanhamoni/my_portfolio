@@ -212,3 +212,30 @@ Route::get('/fix-db', function () {
     ]);
     return 'Database migrated and seeded successfully!';
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/clear-cache-now', function() {
+    Artisan::call('optimize:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "All Laravel Caches Cleared Successfully! 🎉";
+});
