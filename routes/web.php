@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +19,7 @@ use App\Http\Controllers\Admin\AboutFeatureController;
 
 /*
 |--------------------------------------------------------------------------
-| Frontend
+| Frontend Routes
 |--------------------------------------------------------------------------
 */
 
@@ -31,7 +30,7 @@ Route::post('/contact-send', [ContactController::class, 'store'])
 
 /*
 |--------------------------------------------------------------------------
-| Admin Login
+| Admin Login Routes
 |--------------------------------------------------------------------------
 */
 
@@ -47,45 +46,30 @@ Route::post('/admin-login', [AdminController::class, 'adminLoginSubmit'])->name(
 Route::middleware('auth')->group(function () {
 
     /*
-    |--------------------------------------------------------------------------
     | Dashboard
-    |--------------------------------------------------------------------------
     */
-
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
     /*
-    |--------------------------------------------------------------------------
     | About
-    |--------------------------------------------------------------------------
     */
-
     Route::get('/about', [AboutController::class, 'index'])->name('about.index');
     Route::post('/about/update', [AboutController::class, 'update'])->name('about.update');
 
-
-
-
-// About Features
-Route::get('/about-features', [AboutFeatureController::class, 'index'])->name('about-features.index');
-
-Route::get('/about-features/create', [AboutFeatureController::class, 'create'])->name('about-features.create');
-
-Route::post('/about-features/store', [AboutFeatureController::class, 'store'])->name('about-features.store');
-
-Route::get('/about-features/edit/{id}', [AboutFeatureController::class, 'edit'])->name('about-features.edit');
-
-Route::post('/about-features/update/{id}', [AboutFeatureController::class, 'update'])->name('about-features.update');
-
-Route::get('/about-features/delete/{id}', [AboutFeatureController::class, 'delete'])->name('about-features.delete');
     /*
-    |--------------------------------------------------------------------------
-    | Skills
-    |--------------------------------------------------------------------------
+    | About Features
     */
+    Route::get('/about-features', [AboutFeatureController::class, 'index'])->name('about-features.index');
+    Route::get('/about-features/create', [AboutFeatureController::class, 'create'])->name('about-features.create');
+    Route::post('/about-features/store', [AboutFeatureController::class, 'store'])->name('about-features.store');
+    Route::get('/about-features/edit/{id}', [AboutFeatureController::class, 'edit'])->name('about-features.edit');
+    Route::post('/about-features/update/{id}', [AboutFeatureController::class, 'update'])->name('about-features.update');
+    Route::get('/about-features/delete/{id}', [AboutFeatureController::class, 'delete'])->name('about-features.delete');
 
+    /*
+    | Skills
+    */
     Route::get('/skills', [SkillController::class, 'index'])->name('skills.index');
     Route::get('/skills/create', [SkillController::class, 'create'])->name('skills.create');
     Route::post('/skills/store', [SkillController::class, 'store'])->name('skills.store');
@@ -94,11 +78,8 @@ Route::get('/about-features/delete/{id}', [AboutFeatureController::class, 'delet
     Route::get('/skills/delete/{id}', [SkillController::class, 'delete'])->name('skills.delete');
 
     /*
-    |--------------------------------------------------------------------------
     | Resume
-    |--------------------------------------------------------------------------
     */
-
     Route::get('/resume', [ResumeController::class, 'index'])->name('resume.index');
     Route::get('/resume/create', [ResumeController::class, 'create'])->name('resume.create');
     Route::post('/resume/store', [ResumeController::class, 'store'])->name('resume.store');
@@ -106,37 +87,19 @@ Route::get('/about-features/delete/{id}', [AboutFeatureController::class, 'delet
     Route::post('/resume/update/{id}', [ResumeController::class, 'update'])->name('resume.update');
     Route::get('/resume/delete/{id}', [ResumeController::class, 'delete'])->name('resume.delete');
 
-
     /*
-|--------------------------------------------------------------------------
-| Timeline
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/timeline', [TimelineController::class, 'index'])
-    ->name('timeline.index');
-
-Route::get('/timeline/create', [TimelineController::class, 'create'])
-    ->name('timeline.create');
-
-Route::post('/timeline/store', [TimelineController::class, 'store'])
-    ->name('timeline.store');
-
-Route::get('/timeline/edit/{id}', [TimelineController::class, 'edit'])
-    ->name('timeline.edit');
-
-Route::post('/timeline/update/{id}', [TimelineController::class, 'update'])
-    ->name('timeline.update');
-
-Route::get('/timeline/delete/{id}', [TimelineController::class, 'destroy'])
-    ->name('timeline.delete');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Services
-    |--------------------------------------------------------------------------
+    | Timeline
     */
+    Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline.index');
+    Route::get('/timeline/create', [TimelineController::class, 'create'])->name('timeline.create');
+    Route::post('/timeline/store', [TimelineController::class, 'store'])->name('timeline.store');
+    Route::get('/timeline/edit/{id}', [TimelineController::class, 'edit'])->name('timeline.edit');
+    Route::post('/timeline/update/{id}', [TimelineController::class, 'update'])->name('timeline.update');
+    Route::get('/timeline/delete/{id}', [TimelineController::class, 'destroy'])->name('timeline.delete');
 
+    /*
+    | Services
+    */
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
     Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
@@ -145,11 +108,8 @@ Route::get('/timeline/delete/{id}', [TimelineController::class, 'destroy'])
     Route::get('/services/delete/{id}', [ServiceController::class, 'delete'])->name('services.delete');
 
     /*
-    |--------------------------------------------------------------------------
     | Projects
-    |--------------------------------------------------------------------------
     */
-
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('/projects/store', [ProjectController::class, 'store'])->name('projects.store');
@@ -158,79 +118,31 @@ Route::get('/timeline/delete/{id}', [TimelineController::class, 'destroy'])
     Route::get('/projects/delete/{id}', [ProjectController::class, 'delete'])->name('projects.delete');
 
     /*
-    |--------------------------------------------------------------------------
     | Portfolio Settings
-    |--------------------------------------------------------------------------
     */
-
-    Route::get('/portfolio-settings', [PortfolioSettingController::class, 'edit'])
-        ->name('portfolio.settings');
-
-    Route::post('/portfolio-settings/update', [PortfolioSettingController::class, 'update'])
-        ->name('portfolio.settings.update');
+    Route::get('/portfolio-settings', [PortfolioSettingController::class, 'edit'])->name('portfolio.settings');
+    Route::post('/portfolio-settings/update', [PortfolioSettingController::class, 'update'])->name('portfolio.settings.update');
 
     /*
-    |--------------------------------------------------------------------------
     | Contact Settings
-    |--------------------------------------------------------------------------
     */
+    Route::get('/contact-settings', [ContactSettingController::class, 'index'])->name('contact.settings');
+    Route::post('/contact-settings/update', [ContactSettingController::class, 'update'])->name('contact.settings.update');
 
-    Route::get('/contact-settings', [ContactSettingController::class, 'index'])
-        ->name('contact.settings');
-
-    Route::post('/contact-settings/update', [ContactSettingController::class, 'update'])
-        ->name('contact.settings.update');
-
-
-        // Message.....................
-
-        Route::get('/messages', [ContactMessageController::class, 'index'])
-    ->name('messages.index');
-
-Route::get('/messages/show/{id}', [ContactMessageController::class, 'show'])
-    ->name('messages.show');
-
-Route::get('/messages/delete/{id}', [ContactMessageController::class, 'delete'])
-    ->name('messages.delete');
+    /*
+    | Contact Messages
+    */
+    Route::get('/messages', [ContactMessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/show/{id}', [ContactMessageController::class, 'show'])->name('messages.show');
+    Route::get('/messages/delete/{id}', [ContactMessageController::class, 'delete'])->name('messages.delete');
 
 });
 
-
-
-
-
-
-
-
-
-
-
-Route::get('/fix-db', function () {
-    Artisan::call('migrate:fresh', [
-        '--seed' => true,
-        '--force' => true,
-    ]);
-    return 'Database migrated and seeded successfully!';
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+|--------------------------------------------------------------------------
+| Emergency Helper Routes (Cache Clear)
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/clear-cache-now', function() {
     Artisan::call('optimize:clear');
