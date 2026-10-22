@@ -3,13 +3,13 @@
 echo "Running composer install..."
 composer install --no-dev --optimize-autoloader --no-interaction
 
-# Clear cache
+# Force clear all Laravel caches so routes work immediately
+php artisan optimize:clear
 php artisan route:clear
 php artisan config:clear
 php artisan view:clear
-php artisan cache:clear
 
-# Database migration, storage linking, and seeding
+# Database migration & seeding
 php artisan migrate --force
 php artisan storage:link
 php artisan db:seed --force
