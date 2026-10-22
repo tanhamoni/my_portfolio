@@ -9,3 +9,6 @@ ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
 
 WORKDIR /var/www/html
+
+# Run composer install directly while building image
+RUN composer install --no-dev --optimize-autoloader --no-interaction
