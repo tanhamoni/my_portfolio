@@ -33,10 +33,8 @@ Route::post('/contact-send', [ContactController::class, 'store'])
 | Admin Login Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/admin-login', [AdminController::class, 'adminLogin'])->name('admin.login');
-Route::post('/admin-login', [AdminController::class, 'adminLoginSubmit'])->name('admin.login.submit');
-
+Route::get('/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::post('/login', [AdminController::class, 'adminLoginSubmit'])->name('admin.login.submit');
 /*
 |--------------------------------------------------------------------------
 | Protected Admin Routes
