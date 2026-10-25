@@ -12,3 +12,7 @@ WORKDIR /var/www/html
 
 # Run composer install directly while building image
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Force copy custom Nginx configuration to override default settings
+COPY conf/nginx/site.conf /etc/nginx/sites-available/default.conf
+COPY conf/nginx/site.conf /etc/nginx/sites-enabled/default.conf
