@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Clear all caches and route caches
+# Clear all caches completely
 php artisan optimize:clear
 php artisan route:clear
 php artisan config:clear
