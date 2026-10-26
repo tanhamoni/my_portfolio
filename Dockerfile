@@ -5,10 +5,10 @@ COPY . .
 # Image config
 ENV SKIP_COMPOSER 0
 ENV WEBROOT /var/www/html/public
+ENV DOCUMENT_ROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
 
 WORKDIR /var/www/html
 
-# Run composer install directly while building image
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interactionS
