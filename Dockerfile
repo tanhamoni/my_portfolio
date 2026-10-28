@@ -18,6 +18,7 @@ WORKDIR /var/www/html
 
 COPY . .
 COPY --from=frontend /app/public/build ./public/build
+COPY certs/isrgrootx1.pem /var/www/html/certs/isrgrootx1.pem
 
 ENV SKIP_COMPOSER=0
 ENV WEBROOT=/var/www/html/public
