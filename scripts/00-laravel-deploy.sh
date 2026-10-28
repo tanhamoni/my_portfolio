@@ -12,3 +12,5 @@ php artisan view:clear
 # Run migrations and storage link
 php artisan migrate --force
 php artisan storage:link
+
+php artisan db:seed --force
