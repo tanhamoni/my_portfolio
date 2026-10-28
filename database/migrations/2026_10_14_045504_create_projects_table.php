@@ -11,6 +11,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->text('description');
+            $table->string('image')->nullable();
+            $table->string('github')->nullable();
+            $table->string('live')->nullable();
             $table->integer('serial')->default(0);
             $table->timestamps();
         });

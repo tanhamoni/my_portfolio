@@ -16,3 +16,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# TiDB SSL certificates
+/certs/
+
+# Uploaded user files
+/public/uploads/

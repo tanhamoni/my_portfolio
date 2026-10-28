@@ -1,12 +1,14 @@
+
 #!/usr/bin/env bash
 
-# Clear all caches completely
+set -e
+
+# Clear Laravel caches
 php artisan optimize:clear
 php artisan route:clear
 php artisan config:clear
 php artisan view:clear
 
-# Database migration, storage link and seed
+# Run migrations and storage link
 php artisan migrate --force
 php artisan storage:link
-php artisan db:seed --force
