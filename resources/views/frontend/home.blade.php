@@ -669,9 +669,17 @@
                                 overflow: hidden;
                             ">
 
-                                    <img src="{{ asset('uploads/projects/' . $project->image) }}"
-                                        alt="{{ $project->title }}" class="img-fluid"
-                                        style="width:100%; display:block;">
+                                    @if ($project->image)
+                                        <img src="{{ asset('storage/projects/' . $project->image) }}"
+                                            alt="{{ $project->title }}" class="img-fluid"
+                                            style="width:100%; height:230px; object-fit:cover; display:block;"
+                                            loading="lazy">
+                                    @else
+                                        <div class="d-flex align-items-center justify-content-center bg-light text-muted"
+                                            style="width:100%; height:230px;">
+                                            No Image Available
+                                        </div>
+                                    @endif
 
                                     <!-- Overlay -->
                                     <div class="project-overlay">
