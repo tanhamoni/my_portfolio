@@ -26,7 +26,7 @@ class ProjectController extends Controller
         return view('admin.projects.create');
     }
 
-    // Store Project
+    // Save New Project
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -48,11 +48,15 @@ class ProjectController extends Controller
                 $imageName = Str::uuid() . '.' .
                     $request->file('image')->extension();
 
-                $request->file('image')->storeAs(
+                $saved = $request->file('image')->storeAs(
                     'projects',
                     $imageName,
                     'public'
                 );
+
+                if ($saved === false) {
+                    throw new \RuntimeException('Image upload failed.');
+                }
             }
 
             $project = new Project();
@@ -74,7 +78,6 @@ class ProjectController extends Controller
                 ->with('success', 'Project Added Successfully');
 
         } catch (\Throwable $e) {
-
             if ($imageName) {
                 Storage::disk('public')
                     ->delete('projects/' . $imageName);
@@ -84,7 +87,7 @@ class ProjectController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Project save failed. Check server logs.');
+                ->with('error', 'Project save failed. Check Render logs.');
         }
     }
 
@@ -121,11 +124,15 @@ class ProjectController extends Controller
                 $newImage = Str::uuid() . '.' .
                     $request->file('image')->extension();
 
-                $request->file('image')->storeAs(
+                $saved = $request->file('image')->storeAs(
                     'projects',
                     $newImage,
                     'public'
                 );
+
+                if ($saved === false) {
+                    throw new \RuntimeException('Image upload failed.');
+                }
             }
 
             $project->title = $validated['title'];
@@ -153,7 +160,6 @@ class ProjectController extends Controller
                 ->with('success', 'Project Updated Successfully');
 
         } catch (\Throwable $e) {
-
             if ($newImage) {
                 Storage::disk('public')
                     ->delete('projects/' . $newImage);
@@ -163,7 +169,7 @@ class ProjectController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Project update failed. Check server logs.');
+                ->with('error', 'Project update failed. Check Render logs.');
         }
     }
 
@@ -187,11 +193,10 @@ class ProjectController extends Controller
                 ->with('success', 'Project Deleted Successfully');
 
         } catch (\Throwable $e) {
-
             report($e);
 
             return back()
-                ->with('error', 'Project delete failed. Check server logs.');
+                ->with('error', 'Project delete failed.');
         }
     }
 }

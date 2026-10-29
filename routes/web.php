@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\ContactSettingController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\TimelineController;
-use App\Http\Controllers\Admin\AboutFeatureController;  
+use App\Http\Controllers\Admin\AboutFeatureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,15 +105,32 @@ Route::middleware('auth')->group(function () {
     Route::post('/services/update/{id}', [ServiceController::class, 'update'])->name('services.update');
     Route::get('/services/delete/{id}', [ServiceController::class, 'delete'])->name('services.delete');
 
+
+
     /*
+    |--------------------------------------------------------------------------
     | Projects
+    |--------------------------------------------------------------------------
     */
-    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
-    Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
-    Route::post('/projects/store', [ProjectController::class, 'store'])->name('projects.store');
-    Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-    Route::post('/projects/update/{id}', [ProjectController::class, 'update'])->name('projects.update');
-    Route::get('/projects/delete/{id}', [ProjectController::class, 'delete'])->name('projects.delete');
+
+    Route::get('/projects', [ProjectController::class, 'index'])
+        ->name('projects.index');
+
+    Route::get('/projects/create', [ProjectController::class, 'create'])
+        ->name('projects.create');
+
+    Route::post('/projects/store', [ProjectController::class, 'store'])
+        ->name('projects.store');
+
+    Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])
+        ->name('projects.edit');
+
+    Route::post('/projects/update/{id}', [ProjectController::class, 'update'])
+        ->name('projects.update');
+
+    Route::delete('/projects/delete/{id}', [ProjectController::class, 'delete'])
+        ->name('projects.delete');
+
 
     /*
     | Portfolio Settings
@@ -133,7 +150,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages', [ContactMessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/show/{id}', [ContactMessageController::class, 'show'])->name('messages.show');
     Route::get('/messages/delete/{id}', [ContactMessageController::class, 'delete'])->name('messages.delete');
-
 });
 
 /*
@@ -142,7 +158,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/clear-cache-now', function() {
+Route::get('/clear-cache-now', function () {
     Artisan::call('optimize:clear');
     Artisan::call('route:clear');
     Artisan::call('config:clear');
