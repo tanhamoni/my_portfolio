@@ -11,7 +11,11 @@ class ResumeController extends Controller
     public function index()
     {
         $resumes = Resume::latest()->get();
-        return view('admin.resume.index', compact('resumes'));
+
+        return view(
+            'admin.resume.index',
+            compact('resumes')
+        );
     }
 
     public function create()
@@ -21,48 +25,65 @@ class ResumeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'institution' => 'required',
-            'year' => 'required',
-            'description' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'institution' => 'required|string|max:255',
+            'year' => 'required|string|max:255',
+            'description' => 'required|string',
         ]);
 
-        Resume::create($request->all());
+        Resume::create($validated);
 
-        return redirect()->route('resume.index')
-            ->with('success', 'Resume Added Successfully');
+        return redirect()
+            ->route('resume.index')
+            ->with(
+                'success',
+                'Resume Added Successfully'
+            );
     }
 
     public function edit($id)
     {
         $resume = Resume::findOrFail($id);
 
-        return view('admin.resume.edit', compact('resume'));
+        return view(
+            'admin.resume.edit',
+            compact('resume')
+        );
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required',
-            'institution' => 'required',
-            'year' => 'required',
-            'description' => 'required',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'institution' => 'required|string|max:255',
+            'year' => 'required|string|max:255',
+            'description' => 'required|string',
         ]);
 
         $resume = Resume::findOrFail($id);
 
-        $resume->update($request->all());
+        $resume->update($validated);
 
-        return redirect()->route('resume.index')
-            ->with('success', 'Resume Updated Successfully');
+        return redirect()
+            ->route('resume.index')
+            ->with(
+                'success',
+                'Resume Updated Successfully'
+            );
     }
 
     public function delete($id)
     {
-        Resume::findOrFail($id)->delete();
+        $resume = Resume::findOrFail($id);
 
-        return redirect()->route('resume.index')
-            ->with('success', 'Resume Deleted Successfully');
+        $resume->delete();
+
+        return redirect()
+            ->route('resume.index')
+            ->with(
+                'success',
+                'Resume Deleted Successfully'
+            );
     }
 }

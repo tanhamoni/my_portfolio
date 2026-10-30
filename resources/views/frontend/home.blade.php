@@ -1,5 +1,26 @@
 @extends('frontend.includes.master')
 @section('content')
+    @php
+        // Cloudinary URLs are stored directly; older uploads use local paths.
+        $mediaUrl = function ($value, $localFolder) {
+            if (blank($value)) {
+                return null;
+            }
+
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
+                return str_starts_with($value, 'https://') ? $value : null;
+            }
+
+            // Avoid treating unexpected paths as file names.
+            $filename = basename(str_replace('\\', '/', $value));
+            return asset(trim($localFolder, '/') . '/' . rawurlencode($filename));
+        };
+
+        $heroImageUrl = $mediaUrl($setting?->profile_image, 'uploads/profile') ?? asset('assets/img/profile/pic.jpg');
+        $aboutImageUrl = $mediaUrl($setting?->about_image, 'uploads/profile') ?? asset('assets/img/profile/pic.jpg');
+        $resumeFileUrl = $mediaUrl($setting?->resume_file, 'uploads/resume');
+    @endphp
+
     <main class="main">
 
         <!-- Hero Section -->
@@ -75,31 +96,31 @@
                             <div class="social-links" data-aos="fade-up" data-aos-delay="400">
 
                                 @if ($setting?->facebook)
-                                    <a href="{{ $setting?->facebook }}" target="_blank">
+                                    <a href="{{ $setting?->facebook }}" target="_blank" rel="noopener noreferrer">
                                         <i class="bi bi-facebook"></i>
                                     </a>
                                 @endif
 
                                 @if ($setting?->twitter)
-                                    <a href="{{ $setting?->twitter }}" target="_blank">
+                                    <a href="{{ $setting?->twitter }}" target="_blank" rel="noopener noreferrer">
                                         <i class="bi bi-twitter"></i>
                                     </a>
                                 @endif
 
                                 @if ($setting?->github)
-                                    <a href="{{ $setting?->github }}" target="_blank">
+                                    <a href="{{ $setting?->github }}" target="_blank" rel="noopener noreferrer">
                                         <i class="bi bi-github"></i>
                                     </a>
                                 @endif
 
                                 @if ($setting?->linkedin)
-                                    <a href="{{ $setting?->linkedin }}" target="_blank">
+                                    <a href="{{ $setting?->linkedin }}" target="_blank" rel="noopener noreferrer">
                                         <i class="bi bi-linkedin"></i>
                                     </a>
                                 @endif
 
                                 @if ($setting?->whatsapp)
-                                    <a href="{{ $setting?->whatsapp }}" target="_blank" rel="noopener">
+                                    <a href="{{ $setting?->whatsapp }}" target="_blank" rel="noopener noreferrer">
                                         <i class="bi bi-whatsapp"></i>
                                     </a>
                                 @endif
@@ -132,13 +153,8 @@
 
                             </div>
 
-                            @if ($setting?->profile_image)
-                                <img src="{{ asset('uploads/profile/' . $setting?->profile_image) }}"
-                                    alt="{{ $setting?->name }}" class="img-fluid hero-main-image">
-                            @else
-                                <img src="{{ asset('assets/img/profile/pic.jpg') }}" alt="Portfolio Hero"
-                                    class="img-fluid hero-main-image">
-                            @endif
+                            <img src="{{ $heroImageUrl }}" alt="{{ $setting?->name ?? 'Portfolio Hero' }}"
+                                class="img-fluid hero-main-image">
 
                             <div class="image-overlay"></div>
 
@@ -171,12 +187,8 @@
 
                             <div class="profile-image">
 
-                                @if (!empty($setting?->about_image))
-                                    <img src="{{ asset('uploads/profile/' . $setting?->about_image) }}"
-                                        alt="{{ $setting?->name }}" class="img-fluid">
-                                @else
-                                    <img src="{{ asset('assets/img/profile/pic.jpg') }}" alt="Profile" class="img-fluid">
-                                @endif
+                                <img src="{{ $aboutImageUrl }}" alt="{{ $setting?->name ?? 'Profile' }}"
+                                    class="img-fluid">
 
                             </div>
 
@@ -360,9 +372,9 @@
 
                                     </a>
 
-                                    @if (!empty($setting?->resume_file))
-                                        <a href="{{ asset('uploads/resume/' . $setting?->resume_file) }}"
-                                            class="btn btn-outline" target="_blank">
+                                    @if ($resumeFileUrl)
+                                        <a href="{{ $resumeFileUrl }}" class="btn btn-outline" target="_blank"
+                                            rel="noopener noreferrer">
 
                                             <i class="bi bi-file-earmark-pdf"></i>
                                             {{ $setting?->resume_button_text ?? 'View Resume' }}
@@ -670,7 +682,7 @@
                             ">
 
                                     @if ($project->image)
-                                        <img src="{{ asset('storage/projects/' . $project->image) }}"
+                                        <img src="{{ $mediaUrl($project->image, 'storage/projects') }}"
                                             alt="{{ $project->title }}" class="img-fluid"
                                             style="width:100%; height:230px; object-fit:cover; display:block;"
                                             loading="lazy">
@@ -685,7 +697,7 @@
                                     <div class="project-overlay">
 
                                         @if ($project->github)
-                                            <a href="{{ $project->github }}" target="_blank">
+                                            <a href="{{ $project->github }}" target="_blank" rel="noopener noreferrer">
 
                                                 <i class="bi bi-github"></i>
 
@@ -694,7 +706,7 @@
 
 
                                         @if ($project->live)
-                                            <a href="{{ $project->live }}" target="_blank">
+                                            <a href="{{ $project->live }}" target="_blank" rel="noopener noreferrer">
 
                                                 <i class="bi bi-box-arrow-up-right"></i>
 
@@ -745,7 +757,7 @@
                                     <div class="project-buttons">
 
                                         @if ($project->github)
-                                            <a href="{{ $project->github }}" target="_blank"
+                                            <a href="{{ $project->github }}" target="_blank" rel="noopener noreferrer"
                                                 class="btn btn-dark btn-sm">
 
                                                 <i class="bi bi-github"></i>
@@ -757,7 +769,7 @@
 
 
                                         @if ($project->live)
-                                            <a href="{{ $project->live }}" target="_blank"
+                                            <a href="{{ $project->live }}" target="_blank" rel="noopener noreferrer"
                                                 class="btn btn-primary btn-sm">
 
                                                 <i class="bi bi-box-arrow-up-right"></i>

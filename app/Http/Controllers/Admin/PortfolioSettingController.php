@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\PortfolioSetting;
+use App\Services\CloudinaryService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PortfolioSettingController extends Controller
 {
-    // Edit Page
     public function edit()
     {
         $setting = PortfolioSetting::first();
@@ -17,128 +18,176 @@ class PortfolioSettingController extends Controller
             $setting = PortfolioSetting::create([]);
         }
 
-        return view('admin.portfolio_setting.edit', compact('setting'));
+        return view(
+            'admin.portfolio_setting.edit',
+            compact('setting')
+        );
     }
 
-    // Update Portfolio Setting
-    public function update(Request $request)
-    {
-        $setting = PortfolioSetting::first();
+    public function update(
+        Request $request,
+        CloudinaryService $cloudinary
+    ) {
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'typed_text' => 'nullable|string',
+            'hero_description' => 'nullable|string',
 
-        if (!$setting) {
-            $setting = new PortfolioSetting();
-        }
+            'projects_completed' => 'nullable|integer|min:0',
+            'years_experience' => 'nullable|numeric|min:0',
+            'happy_clients' => 'nullable|integer|min:0',
 
-        // Hero Section
-        $setting->name = $request->name;
-        $setting->designation = $request->designation;
-        $setting->typed_text = $request->typed_text;
-        $setting->hero_description = $request->hero_description;
+            'facebook' => 'nullable|url|max:255',
+            'twitter' => 'nullable|url|max:255',
+            'github' => 'nullable|url|max:255',
+            'linkedin' => 'nullable|url|max:255',
+            'whatsapp' => 'nullable|string|max:255',
 
-        // Counter
-        $setting->projects_completed = $request->projects_completed;
-        $setting->years_experience = $request->years_experience;
-        $setting->happy_clients = $request->happy_clients;
+            'card_one' => 'nullable|string',
+            'card_two' => 'nullable|string',
+            'card_three' => 'nullable|string',
 
-        // Social Links
-        $setting->facebook = $request->facebook;
-        $setting->twitter = $request->twitter;
-        $setting->github = $request->github;
-      $setting->linkedin = $request->linkedin;
-      $setting->whatsapp = $request->whatsapp;
+            'about_description' => 'nullable|string',
+            'fun_fact' => 'nullable|string',
 
-        // Service Cards
-        $setting->card_one = $request->card_one;
-        $setting->card_two = $request->card_two;
-        $setting->card_three = $request->card_three;
+            'button_text' => 'nullable|string|max:255',
+            'button_link' => 'nullable|string|max:255',
+            'resume_button_text' => 'nullable|string|max:255',
 
-        // About Section
-        $setting->about_description = $request->about_description;
-        $setting->fun_fact = $request->fun_fact;
+            'profile_image' =>
+            'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
-        // CTA Buttons
-        $setting->button_text = $request->button_text;
-        $setting->button_link = $request->button_link;
-        $setting->resume_button_text = $request->resume_button_text;
+            'about_image' =>
+            'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
-        /*
-        |--------------------------------------------------------------------------
-        | Profile Image Upload
-        |--------------------------------------------------------------------------
-        */
+            'resume_file' =>
+            'nullable|file|mimes:pdf|max:5120',
+        ]);
 
-        if ($request->hasFile('profile_image')) {
+        $setting = PortfolioSetting::first()
+            ?? new PortfolioSetting();
 
-            if (
-                $setting->profile_image &&
-                file_exists(public_path('uploads/profile/' . $setting->profile_image))
-            ) {
-                unlink(public_path('uploads/profile/' . $setting->profile_image));
+        $oldFiles = [
+            'profile_image' => $setting->profile_image,
+            'about_image' => $setting->about_image,
+            'resume_file' => $setting->resume_file,
+        ];
+
+        $newFiles = [];
+
+        try {
+            if ($request->hasFile('profile_image')) {
+                $newFiles['profile_image'] =
+                    $cloudinary->upload(
+                        $request->file('profile_image'),
+                        'portfolio/profile'
+                    );
             }
 
-            $image = $request->file('profile_image');
-
-            $imageName = time() . '_profile.' . $image->getClientOriginalExtension();
-
-            $image->move(public_path('uploads/profile'), $imageName);
-
-            $setting->profile_image = $imageName;
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | About Image Upload
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->hasFile('about_image')) {
-
-            if (
-                $setting->about_image &&
-                file_exists(public_path('uploads/profile/' . $setting->about_image))
-            ) {
-                unlink(public_path('uploads/profile/' . $setting->about_image));
+            if ($request->hasFile('about_image')) {
+                $newFiles['about_image'] =
+                    $cloudinary->upload(
+                        $request->file('about_image'),
+                        'portfolio/about'
+                    );
             }
 
-            $image = $request->file('about_image');
-
-            $imageName = time() . '_about.' . $image->getClientOriginalExtension();
-
-            $image->move(public_path('uploads/profile'), $imageName);
-
-            $setting->about_image = $imageName;
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Resume PDF Upload
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->hasFile('resume_file')) {
-
-            if (
-                $setting->resume_file &&
-                file_exists(public_path('uploads/resume/' . $setting->resume_file))
-            ) {
-                unlink(public_path('uploads/resume/' . $setting->resume_file));
+            if ($request->hasFile('resume_file')) {
+                $newFiles['resume_file'] =
+                    $cloudinary->upload(
+                        $request->file('resume_file'),
+                        'portfolio/resumes',
+                        'raw'
+                    );
             }
 
-            if (!file_exists(public_path('uploads/resume'))) {
-                mkdir(public_path('uploads/resume'), 0777, true);
+            // Preserve all existing settings fields.
+            $fields = [
+                'name',
+                'designation',
+                'typed_text',
+                'hero_description',
+                'projects_completed',
+                'years_experience',
+                'happy_clients',
+                'facebook',
+                'twitter',
+                'github',
+                'linkedin',
+                'whatsapp',
+                'card_one',
+                'card_two',
+                'card_three',
+                'about_description',
+                'fun_fact',
+                'button_text',
+                'button_link',
+                'resume_button_text',
+            ];
+
+            foreach ($fields as $field) {
+                $setting->{$field} = $validated[$field] ?? null;
             }
 
-            $pdf = $request->file('resume_file');
+            foreach ($newFiles as $field => $url) {
+                $setting->{$field} = $url;
+            }
 
-            $pdfName = time() . '_resume.' . $pdf->getClientOriginalExtension();
+            $setting->save();
+        } catch (\Throwable $e) {
+            foreach ($newFiles as $field => $url) {
+                try {
+                    $type = $field === 'resume_file'
+                        ? 'raw'
+                        : 'image';
 
-            $pdf->move(public_path('uploads/resume'), $pdfName);
+                    $cloudinary->delete($url, $type);
+                } catch (\Throwable $cleanupError) {
+                    report($cleanupError);
+                }
+            }
 
-            $setting->resume_file = $pdfName;
+            report($e);
+
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Portfolio update failed. Check logs.'
+                );
         }
 
-        $setting->save();
+        // Delete old Cloudinary files only after DB save.
+        foreach ($newFiles as $field => $url) {
+            $oldUrl = $oldFiles[$field] ?? null;
 
-        return redirect()->back()->with('success', 'Portfolio Settings Updated Successfully.');
+            if (!$oldUrl) {
+                continue;
+            }
+
+            try {
+                $type = $field === 'resume_file'
+                    ? 'raw'
+                    : 'image';
+
+                $cloudinary->delete($oldUrl, $type);
+            } catch (\Throwable $e) {
+                Log::warning(
+                    'Old portfolio file cleanup failed',
+                    [
+                        'field' => $field,
+                        'message' => $e->getMessage(),
+                    ]
+                );
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Portfolio Settings Updated Successfully.'
+            );
     }
 }

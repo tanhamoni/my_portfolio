@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PortfolioSetting;
+use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AboutController extends Controller
 {
@@ -19,39 +21,74 @@ class AboutController extends Controller
         return view('admin.about.index', compact('about'));
     }
 
-    public function update(Request $request)
-    {
-        $about = PortfolioSetting::first();
+    public function update(
+        Request $request,
+        CloudinaryService $cloudinary
+    ) {
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'designation' => 'nullable|string|max:255',
+            'about_description' => 'nullable|string',
+            'profile_image' =>
+            'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
 
-        if (!$about) {
-            $about = new PortfolioSetting();
-        }
+        $about = PortfolioSetting::first()
+            ?? new PortfolioSetting();
 
-        $about->name = $request->name;
-        $about->designation = $request->designation;
-        $about->about_description = $request->about_description;
+        $oldImage = $about->about_image;
+        $newImage = null;
 
-        // About Image Upload
-        if ($request->hasFile('profile_image')) {
-
-            if (
-                $about->about_image &&
-                file_exists(public_path('uploads/profile/' . $about->about_image))
-            ) {
-                unlink(public_path('uploads/profile/' . $about->about_image));
+        try {
+            if ($request->hasFile('profile_image')) {
+                $newImage = $cloudinary->upload(
+                    $request->file('profile_image'),
+                    'portfolio/about'
+                );
             }
 
-            $image = $request->file('profile_image');
+            $about->name = $validated['name'] ?? null;
+            $about->designation =
+                $validated['designation'] ?? null;
+            $about->about_description =
+                $validated['about_description'] ?? null;
 
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            if ($newImage) {
+                $about->about_image = $newImage;
+            }
 
-            $image->move(public_path('uploads/profile'), $imageName);
+            $about->save();
+        } catch (\Throwable $e) {
+            if ($newImage) {
+                try {
+                    $cloudinary->delete($newImage);
+                } catch (\Throwable $cleanupError) {
+                    report($cleanupError);
+                }
+            }
 
-            $about->about_image = $imageName;
+            report($e);
+
+            return back()->withInput()->with(
+                'error',
+                'About update failed. Check logs.'
+            );
         }
 
-        $about->save();
+        if ($newImage && $oldImage) {
+            try {
+                $cloudinary->delete($oldImage);
+            } catch (\Throwable $e) {
+                Log::warning(
+                    'Old About image cleanup failed',
+                    ['message' => $e->getMessage()]
+                );
+            }
+        }
 
-        return back()->with('success', 'About Updated Successfully');
+        return back()->with(
+            'success',
+            'About Updated Successfully'
+        );
     }
 }
