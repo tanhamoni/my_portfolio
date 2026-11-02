@@ -29,5 +29,5 @@ RUN apk add --no-cache ca-certificates && update-ca-certificates
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Automatically run database migrations and start server
-CMD php artisan migrate --force && apache2-foreground
+# Clear old config cache & run migrations automatically on startup
+CMD php artisan config:clear && php artisan cache:clear && php artisan migrate --force && /start.sh
