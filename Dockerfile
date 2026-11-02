@@ -1,4 +1,3 @@
-
 # Build frontend assets
 FROM node:20-alpine AS frontend
 
@@ -29,3 +28,6 @@ ENV RUN_SCRIPTS=1
 RUN apk add --no-cache ca-certificates && update-ca-certificates
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Automatically run database migrations and start server
+CMD php artisan migrate --force && apache2-foreground
