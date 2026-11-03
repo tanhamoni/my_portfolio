@@ -29,5 +29,8 @@ RUN apk add --no-cache ca-certificates && update-ca-certificates
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# Set Nginx to use TCP port 9000 explicitly or let the base image use its default socket path correctly
+RUN echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/www.conf || true
+
 # Clear old config cache & run migrations automatically on startup
 CMD php artisan config:clear && php artisan cache:clear && php artisan migrate --force && /start.sh
