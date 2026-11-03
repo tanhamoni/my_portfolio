@@ -38,5 +38,5 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 EXPOSE 80
 
-# Run Laravel setup & start Apache
-CMD sh -c "php artisan config:cache && php artisan route:cache && apache2-foreground"
+# Start Apache directly
+CMD ["apache2-foreground"]
