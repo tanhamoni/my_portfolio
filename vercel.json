@@ -3,6 +3,7 @@
     "framework": null,
     "buildCommand": "npm run build",
     "outputDirectory": "public",
+    "installCommand": "composer install --no-dev --optimize-autoloader && npm install",
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.7.2"
