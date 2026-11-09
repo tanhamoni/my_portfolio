@@ -5,9 +5,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-// Redirect all Laravel storage, logs, and bootstrap cache paths to writable /tmp directory
-$_ENV['APP_STORAGE'] = '/tmp/storage';
-
+// Ensure all /tmp directories exist before anything loads
 foreach ([
     '/tmp/storage',
     '/tmp/storage/app',
@@ -28,10 +26,23 @@ putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
 putenv('CONFIG_CACHE_PATH=/tmp/bootstrap/cache/config.php');
 putenv('ROUTES_CACHE_PATH=/tmp/bootstrap/cache/routes.php');
+putenv('LOG_CHANNEL=stderr');
 
 try {
-    // Forward the request directly through public/index.php
-    require_once __DIR__ . '/../public/index.php';
+    $app = require_once __DIR__ . '/../bootstrap/app.php';
+
+    // Force Laravel to use /tmp/storage for everything (sessions, logs, cache, views)
+    $app->useStoragePath('/tmp/storage');
+
+    $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+    $response = $kernel->handle(
+        $request = Illuminate\Http\Request::capture()
+    );
+
+    $response->send();
+
+    $kernel->terminate($request, $response);
 } catch (\Throwable $e) {
     echo '<pre style="padding: 20px; font-family: monospace; background: #fff0f0; color: #a00;">';
     echo '<h1>Laravel Boot Error (Vercel)</h1>';
