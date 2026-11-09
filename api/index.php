@@ -5,18 +5,20 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-// Ensure all /tmp directories exist before anything loads
-foreach ([
-    '/tmp/storage',
-    '/tmp/storage/app',
-    '/tmp/storage/framework',
-    '/tmp/storage/framework/views',
-    '/tmp/storage/framework/cache',
-    '/tmp/storage/framework/sessions',
-    '/tmp/storage/logs',
-    '/tmp/bootstrap',
-    '/tmp/bootstrap/cache',
-] as $dir) {
+// Ensure all writable /tmp directories exist
+foreach (
+    [
+        '/tmp/storage',
+        '/tmp/storage/app',
+        '/tmp/storage/framework',
+        '/tmp/storage/framework/views',
+        '/tmp/storage/framework/cache',
+        '/tmp/storage/framework/sessions',
+        '/tmp/storage/logs',
+        '/tmp/bootstrap',
+        '/tmp/bootstrap/cache',
+    ] as $dir
+) {
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);
     }
@@ -29,20 +31,8 @@ putenv('ROUTES_CACHE_PATH=/tmp/bootstrap/cache/routes.php');
 putenv('LOG_CHANNEL=stderr');
 
 try {
-    $app = require_once __DIR__ . '/../bootstrap/app.php';
-
-    // Force Laravel to use /tmp/storage for everything (sessions, logs, cache, views)
-    $app->useStoragePath('/tmp/storage');
-
-    $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
-    $response = $kernel->handle(
-        $request = Illuminate\Http\Request::capture()
-    );
-
-    $response->send();
-
-    $kernel->terminate($request, $response);
+    // Forward the request through public/index.php safely
+    require_once __DIR__ . '/../public/index.php';
 } catch (\Throwable $e) {
     echo '<pre style="padding: 20px; font-family: monospace; background: #fff0f0; color: #a00;">';
     echo '<h1>Laravel Boot Error (Vercel)</h1>';
