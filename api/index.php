@@ -22,7 +22,7 @@ foreach ([
     }
 }
 
-// 2. Point cache and environment variables to /tmp
+// 2. Set environment variables to point caches and storage to /tmp
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
 putenv('CONFIG_CACHE_PATH=/tmp/bootstrap/cache/config.php');
@@ -34,14 +34,14 @@ putenv('SESSION_DRIVER=cookie');
 $_ENV['APP_STORAGE'] = '/tmp/storage';
 
 try {
+    // 3. Load composer autoloader and bootstrap application safely
+    require_once __DIR__ . '/../vendor/autoload.php';
+
     $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-    // 3. Forcefully redirect storage and view compiled paths to /tmp
-    $app->useStoragePath('/tmp/storage');
-    
-    // Explicitly bind view compiled path to /tmp to prevent read-only file system error
-    if (class_exists('Illuminate\Contracts\View\Factory')) {
-        app('config')->set('view.compiled', '/tmp/storage/framework/views');
+    // Handle Laravel 10/11 application instance differences
+    if (method_exists($app, 'useStoragePath')) {
+        $app->useStoragePath('/tmp/storage');
     }
 
     $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
