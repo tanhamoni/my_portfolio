@@ -77,7 +77,7 @@ class ProjectController extends Controller
                 ->withInput()
                 ->with(
                     'error',
-                    'Project save failed. Check logs.'
+                    'Project save failed: ' . $e->getMessage()
                 );
         }
     }
@@ -139,7 +139,7 @@ class ProjectController extends Controller
                 ->withInput()
                 ->with(
                     'error',
-                    'Project update failed. Check logs.'
+                    'Project update failed: ' . $e->getMessage()
                 );
         }
 
