@@ -61,7 +61,6 @@ class ProjectController extends Controller
                     'success',
                     'Project Added Successfully'
                 );
-
         } catch (\Throwable $e) {
             if ($newImage) {
                 try {
@@ -123,7 +122,6 @@ class ProjectController extends Controller
             }
 
             $project->save();
-
         } catch (\Throwable $e) {
             if ($newImage) {
                 try {
@@ -168,7 +166,6 @@ class ProjectController extends Controller
 
         try {
             $project->delete();
-
         } catch (\Throwable $e) {
             report($e);
 
@@ -200,9 +197,9 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'required|string',
-            'technology' => 'required|string',
+            'technology_used' => 'required|string',
             'image' =>
-                'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'github' => 'nullable|url|max:255',
             'live' => 'nullable|url|max:255',
             'featured' => 'nullable|boolean',
@@ -219,8 +216,8 @@ class ProjectController extends Controller
         $project->category = $validated['category'];
         $project->description =
             $validated['description'];
-        $project->technology =
-            $validated['technology'];
+        $project->technology_used =
+            $validated['technology_used'];
         $project->github =
             $validated['github'] ?? null;
         $project->live =
