@@ -58,7 +58,7 @@
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Technology Used *</label>
-                            <input type="text" name="technology" class="form-control" value="{{ old('technology') }}"
+                            <input type="text" name="technology_used" class="form-control" value="{{ old('technology_used') }}"
                                 placeholder="Laravel, Bootstrap, MySQL" required>
                         </div>
 
