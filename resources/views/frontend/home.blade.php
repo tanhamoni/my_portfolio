@@ -291,7 +291,7 @@
                         <!-- FAQ 01 -->
                         <div class="faq-item mb-3">
                             <div class="faq-question">
-                                <span>1. Why should I choose you over other developers?</span>
+                                <span>01. Why should I choose you over other developers?</span>
                                 <i class="bi bi-plus"></i>
                             </div>
                             <div class="faq-answer">
