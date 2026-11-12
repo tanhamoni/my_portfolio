@@ -284,7 +284,8 @@
                         <!-- Section Header Start -->
                         <div class="section-header text-center mb-5">
                             <h2 style="font-weight: bold; font-size: 28px;">Architecture & Answers</h2>
-                            <p style="color: #666; font-size: 15px;">"Strategic insights into my development process, code quality, and long-term scalability."</p>
+                            <p style="color: #666; font-size: 15px;">"Strategic insights into my development process, code
+                                quality, and long-term scalability."</p>
                         </div>
                         <!-- Section Header End -->
 
@@ -359,7 +360,8 @@
                         <!-- FAQ 05 -->
                         <div class="faq-item mb-3">
                             <div class="faq-question">
-                                <span>05. What happens if my business grows and I need to add new features or scale the website later?</span>
+                                <span>05. What happens if my business grows and I need to add new features or scale the
+                                    website later?</span>
                                 <i class="bi bi-plus"></i>
                             </div>
                             <div class="faq-answer">
