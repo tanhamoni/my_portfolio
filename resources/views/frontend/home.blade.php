@@ -68,17 +68,6 @@
                                     </span>
                                 </div>
 
-                                {{-- <div class="stat-item">
-                                    <span class="purecounter" data-purecounter-start="0"
-                                        data-purecounter-end="{{ $setting?->happy_clients }}" data-purecounter-duration="2">
-                                        0
-                                    </span>
-
-                                    <span class="stat-label">
-                                        Happy Clients
-                                    </span>
-                                </div> --}}
-
                             </div>
 
                             <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
@@ -178,7 +167,6 @@
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-                {{-- align-items-start: ছবি কলামের উপর থেকে শুরু হবে --}}
                 <div class="row align-items-start">
 
                     <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
@@ -243,115 +231,6 @@
 
                             </div>
 
-                            <div class="faq-section" data-aos="fade-up" data-aos-delay="300">
-
-                                <!-- Section Header Start -->
-                                <div class="section-header text-center mb-4" style="margin-bottom: 30px;">
-                                    <h2 style="font-weight: bold; font-size: 28px;"> Architecture & Answers</h2>
-                                    <p style="color: #666; font-size: 15px;">"Strategic insights into my development
-                                        process, code quality, and long-term scalability."</p>
-                                </div>
-                                <!-- Section Header End -->
-
-                                <!-- FAQ 01 -->
-                                <div class="faq-item">
-                                    <div class="faq-question">
-                                        <span>01. Why should I choose you over other developers?</span>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-
-                                    <div class="faq-answer">
-                                        "I don’t just write code; I focus on your business goals.
-                                        I build high-performing,lightning-fast and conversion-optimized websites that turn
-                                        visitors into paying customers. Plus, you get lifetime clean code structure,
-                                        transparent communication and post-launch support that keeps your site stress-free."
-                                    </div>
-                                </div>
-
-
-                                <!-- FAQ 02 -->
-                                <div class="faq-item">
-                                    <div class="faq-question">
-                                        <span>02. What is your development process after I place an order?</span>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-
-                                    <div class="faq-answer">
-
-                                        <strong>My process is fully transparent and hassle-free:</strong><br><br>
-
-                                        <strong>Phase 1: Research & Planning</strong><br>
-                                        (Understanding your requirements, brand and target audience.)
-
-                                        <br><br>
-
-                                        <strong>Phase 2: Wireframing & Design</strong><br>
-                                        (Creating the layout and design according to your requirements.)
-
-                                        <br><br>
-
-                                        <strong>Phase 3: Development & Testing</strong><br>
-                                        (Developing the website with Laravel, PHP, MySQL and modern
-                                        web technologies while testing responsiveness and functionality.)
-
-                                        <br><br>
-
-                                        <strong>Phase 4: Review & Launch</strong><br>
-                                        (Making final adjustments and deploying the completed website.)
-                                    </div>
-                                </div>
-
-
-                                <!-- FAQ 03 -->
-                                <div class="faq-item">
-                                    <div class="faq-question">
-                                        <span>03. Will I be able to update the website easily after it is finished?</span>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-
-                                    <div class="faq-answer">
-                                        "Yes, absolutely! I can build the website with a user-friendly
-                                        Laravel admin panel so you can easily manage content such as
-                                        text, images, projects, products and other information without
-                                        needing to edit the code directly."
-                                    </div>
-                                </div>
-
-
-                                <!-- FAQ 04 -->
-                                <div class="faq-item">
-                                    <div class="faq-question">
-                                        <span>04. Do you provide support after the website goes live?</span>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-
-                                    <div class="faq-answer">
-                                        "Yes! I offer 30 days of free support after delivery to help fix bugs, make minor
-                                        adjustments, and resolve technical issues. Beyond that, I’m also available for
-                                        long-term maintenance and support as your business grows."
-                                    </div>
-                                </div>
-
-
-                                <!-- FAQ 05 -->
-                                <div class="faq-item">
-                                    <div class="faq-question">
-                                        <span>05. What happens if my business grows and I need to add new features or scale
-                                            the website later?</span>
-                                        <i class="bi bi-plus"></i>
-                                    </div>
-
-                                    <div class="faq-answer">
-                                        "I build websites with future expansion in mind. The Laravel
-                                        architecture and code structure can be organized in a modular
-                                        and scalable way, making it easier to add new features later,
-                                        such as advanced booking, additional product features,
-                                        payment integrations or other custom functionality."
-                                    </div>
-                                </div>
-
-                            </div>
-
                             <div class="cta-section" data-aos="fade-up" data-aos-delay="400">
 
                                 <div class="fun-fact">
@@ -385,6 +264,7 @@
                                 </div>
 
                             </div>
+
                         </div>
 
                     </div>
@@ -393,6 +273,107 @@
 
             </div>
 
+        </section>
+
+        <!-- Architecture & Answers (FAQ) Section -->
+        <section id="architecture-faq" class="faq-section py-5" data-aos="fade-up" data-aos-delay="300">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+
+                        <!-- Section Header Start -->
+                        <div class="section-header text-center mb-5">
+                            <h2 style="font-weight: bold; font-size: 28px;">Architecture & Answers</h2>
+                            <p style="color: #666; font-size: 15px;">"Strategic insights into my development process, code quality, and long-term scalability."</p>
+                        </div>
+                        <!-- Section Header End -->
+
+                        <!-- FAQ 01 -->
+                        <div class="faq-item mb-3">
+                            <div class="faq-question">
+                                <span>1. Why should I choose you over other developers?</span>
+                                <i class="bi bi-plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                "I don’t just write code; I focus on your business goals.
+                                I build high-performing, lightning-fast and conversion-optimized websites that turn
+                                visitors into paying customers. Plus, you get lifetime clean code structure,
+                                transparent communication and post-launch support that keeps your site stress-free."
+                            </div>
+                        </div>
+
+                        <!-- FAQ 02 -->
+                        <div class="faq-item mb-3">
+                            <div class="faq-question">
+                                <span>02. What is your development process after I place an order?</span>
+                                <i class="bi bi-plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <strong>My process is fully transparent and hassle-free:</strong><br><br>
+
+                                <strong>Phase 1: Research & Planning</strong><br>
+                                (Understanding your requirements, brand and target audience.)
+                                <br><br>
+
+                                <strong>Phase 2: Wireframing & Design</strong><br>
+                                (Creating the layout and design according to your requirements.)
+                                <br><br>
+
+                                <strong>Phase 3: Development & Testing</strong><br>
+                                (Developing the website with Laravel, PHP, MySQL and modern
+                                web technologies while testing responsiveness and functionality.)
+                                <br><br>
+
+                                <strong>Phase 4: Review & Launch</strong><br>
+                                (Making final adjustments and deploying the completed website.)
+                            </div>
+                        </div>
+
+                        <!-- FAQ 03 -->
+                        <div class="faq-item mb-3">
+                            <div class="faq-question">
+                                <span>03. Will I be able to update the website easily after it is finished?</span>
+                                <i class="bi bi-plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                "Yes, absolutely! I can build the website with a user-friendly
+                                Laravel admin panel so you can easily manage content such as
+                                text, images, projects, products and other information without
+                                needing to edit the code directly."
+                            </div>
+                        </div>
+
+                        <!-- FAQ 04 -->
+                        <div class="faq-item mb-3">
+                            <div class="faq-question">
+                                <span>04. Do you provide support after the website goes live?</span>
+                                <i class="bi bi-plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                "Yes! I offer 30 days of free support after delivery to help fix bugs, make minor
+                                adjustments, and resolve technical issues. Beyond that, I’m also available for
+                                long-term maintenance and support as your business grows."
+                            </div>
+                        </div>
+
+                        <!-- FAQ 05 -->
+                        <div class="faq-item mb-3">
+                            <div class="faq-question">
+                                <span>05. What happens if my business grows and I need to add new features or scale the website later?</span>
+                                <i class="bi bi-plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                "I build websites with future expansion in mind. The Laravel
+                                architecture and code structure can be organized in a modular
+                                and scalable way, making it easier to add new features later,
+                                such as advanced booking, additional product features,
+                                payment integrations or other custom functionality."
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Skills Section -->
@@ -787,157 +768,6 @@
 
                         </div>
                     @endforeach
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact section light-background">
-
-            <!-- Section Title -->
-            <div class="container section-title">
-                <h2>Contact</h2>
-                <p>Let's build something amazing together! Whether you have a question about a project or just want to say
-                    hi, my inbox is always open.</p>
-            </div>
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="row g-4 g-lg-5">
-
-                    <!-- Contact Info -->
-                    <div class="col-lg-5">
-                        <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-
-                            <h3>Contact Info</h3>
-
-                            <p>
-                                {{ $contact?->contact_description ?? 'Feel free to contact me anytime.' }}
-                            </p>
-
-                            <!-- Location -->
-                            <div class="info-item">
-                                <div class="icon-box">
-                                    <i class="bi bi-geo-alt"></i>
-                                </div>
-
-                                <div class="content">
-                                    <h4>Location</h4>
-
-                                    <p>{{ $contact?->location ?? '' }}</p>
-
-                                    <p>{{ $contact?->country ?? '' }}</p>
-                                </div>
-                            </div>
-
-                            <!-- Phone -->
-                            <div class="info-item">
-                                <div class="icon-box">
-                                    <i class="bi bi-telephone"></i>
-                                </div>
-
-                                <div class="content">
-                                    <h4>Phone Number</h4>
-
-                                    <p>{{ $contact?->phone ?? '' }}</p>
-
-                                    @if ($contact && $contact->phone2)
-                                        <p>{{ $contact->phone2 }}</p>
-                                    @endif
-
-                                </div>
-                            </div>
-
-                            <!-- Email -->
-                            <div class="info-item">
-                                <div class="icon-box">
-                                    <i class="bi bi-envelope"></i>
-                                </div>
-
-                                <div class="content">
-                                    <h4>Email Address</h4>
-
-                                    <p>{{ $contact?->email ?? '' }}</p>
-
-                                    @if ($contact && $contact->email2)
-                                        <p>{{ $contact->email2 }}</p>
-                                    @endif
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Contact Form -->
-                    <div class="col-lg-7">
-
-                        <div class="contact-form">
-
-                            <h3>{{ $contact?->form_title ?? 'Get In Touch' }}</h3>
-
-                            <p>
-                                {{ $contact?->form_description ?? 'Send me a message and I will reply as soon as possible.' }}
-                            </p>
-
-                            <form action="{{ route('contact.send') }}" method="POST">
-
-                                @csrf
-
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul class="mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                <div class="row gy-4">
-
-                                    <div class="col-md-6">
-                                        <input type="text" name="name" class="form-control"
-                                            placeholder="Your Name" value="{{ old('name') }}" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <input type="email" name="email" class="form-control"
-                                            placeholder="Your Email" value="{{ old('email') }}" required>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <input type="text" name="subject" class="form-control" placeholder="Subject"
-                                            value="{{ old('subject') }}" required>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <textarea name="message" class="form-control" rows="6" placeholder="Message" required>{{ old('message') }}</textarea>
-                                    </div>
-
-                                    <div class="col-12 text-center">
-
-                                        <button type="submit" class="btn">
-                                            Send Message
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
 
                 </div>
 
