@@ -789,57 +789,49 @@
 
                 <div class="row gy-4">
 
-                    <!-- Left Side: Contact Info Box (Blue Background style) -->
+                    <!-- Left Side: Contact Info Box -->
                     <div class="col-lg-5">
-                        <div class="info-wrap"
-                            style="background: #0d6efd; color: #ffffff; padding: 40px; border-radius: 20px; height: 100%; box-shadow: 0 10px 30px rgba(13,110,253,0.20);">
-
+                        <div class="info-wrap" style="background: #0d6efd; color: #ffffff; padding: 40px; border-radius: 20px; height: 100%; box-shadow: 0 10px 30px rgba(13,110,253,0.20);">
+                            
                             <h3 class="mb-3 text-white" style="font-weight: 700;">Contact Info</h3>
-                            <p class="mb-4 text-white-50">
-                                {{ $contact?->contact_description ?? "Have a project in mind or need a modern website for your business? Fill out the form below, and I'll get back to you as soon as possible. Let's turn your vision into reality." }}
-                            </p>
+                            <p class="mb-4 text-white-50">{{ $contact?->contact_description ?? "Have a project in mind or need a modern website for your business? Fill out the form below, and I'll get back to you as soon as possible. Let's turn your vision into reality." }}</p>
 
-                            @if ($contact?->location)
+                            @if($contact?->location)
                                 <div class="info-item d-flex mb-4 align-items-center">
-                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 45px; height: 45px; flex-shrink: 0;">
+                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; flex-shrink: 0;">
                                         <i class="bi bi-geo-alt fs-5"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 text-white" style="font-size: 16px;">Location</h5>
-                                        <p class="mb-0 text-white-50">
-                                            {{ $contact->location }}{{ $contact?->country ? ', ' . $contact->country : '' }}
-                                        </p>
+                                        <p class="mb-0 text-white-50">{{ $contact->location }}{{ $contact?->country ? ', ' . $contact->country : '' }}</p>
                                     </div>
                                 </div>
                             @endif
 
-                            @if ($contact?->phone)
+                            @if($contact?->phone)
                                 <div class="info-item d-flex mb-4 align-items-center">
-                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 45px; height: 45px; flex-shrink: 0;">
-                                        <i class="bi bi-phone fs-5"></i>
+                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; flex-shrink: 0;">
+                                        <i class="bi bi-telephone fs-5"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 text-white" style="font-size: 16px;">Phone Number</h5>
                                         <p class="mb-0 text-white-50">{{ $contact->phone }}</p>
-                                        @if ($contact?->phone2)
+                                        @if($contact?->phone2)
                                             <p class="mb-0 text-white-50">{{ $contact->phone2 }}</p>
                                         @endif
                                     </div>
                                 </div>
                             @endif
 
-                            @if ($contact?->email)
+                            @if($contact?->email)
                                 <div class="info-item d-flex align-items-center">
-                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 45px; height: 45px; flex-shrink: 0;">
+                                    <div class="icon me-3 bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; flex-shrink: 0;">
                                         <i class="bi bi-envelope fs-5"></i>
                                     </div>
                                     <div>
                                         <h5 class="mb-1 text-white" style="font-size: 16px;">Email Address</h5>
                                         <p class="mb-0 text-white-50">{{ $contact->email }}</p>
-                                        @if ($contact?->email2)
+                                        @if($contact?->email2)
                                             <p class="mb-0 text-white-50">{{ $contact->email2 }}</p>
                                         @endif
                                     </div>
@@ -851,42 +843,33 @@
 
                     <!-- Right Side: Form Box -->
                     <div class="col-lg-7">
-                        <div
-                            style="background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.05); height: 100%;">
-
-                            <h3 class="mb-2" style="font-weight: 700; color: #222;">
-                                {{ $contact?->form_title ?? "Let's Build Your Next Website" }}</h3>
-                            <p class="mb-4 text-muted" style="font-size: 14px;">
-                                {{ $contact?->form_description ?? "Have a project in mind or need a modern website for your business? Fill out the form below and I'll get back to you as soon as possible. Let's turn your ideas into reality." }}
-                            </p>
+                        <div style="background: #ffffff; padding: 40px; border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.05); height: 100%;">
+                            
+                            <h3 class="mb-2" style="font-weight: 700; color: #222;">{{ $contact?->form_title ?? "Let's Build Your Next Website" }}</h3>
+                            <p class="mb-4 text-muted" style="font-size: 14px;">{{ $contact?->form_description ?? "Have a project in mind or need a modern website for your business? Fill out the form below and I'll get back to you as soon as possible. Let's turn your ideas into reality." }}</p>
 
                             <form action="#" method="post" class="php-email-form">
                                 @csrf
                                 <div class="row gy-3">
 
                                     <div class="col-md-6">
-                                        <input type="text" name="name" class="form-control"
-                                            placeholder="Your Name" required style="padding: 12px; border-radius: 8px;">
+                                        <input type="text" name="name" class="form-control" placeholder="Your Name" required style="padding: 12px; border-radius: 8px;">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <input type="email" class="form-control" name="email"
-                                            placeholder="Your Email" required style="padding: 12px; border-radius: 8px;">
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email" required style="padding: 12px; border-radius: 8px;">
                                     </div>
 
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject"
-                                            required style="padding: 12px; border-radius: 8px;">
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject" required style="padding: 12px; border-radius: 8px;">
                                     </div>
 
                                     <div class="col-md-12">
-                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required
-                                            style="padding: 12px; border-radius: 8px;"></textarea>
+                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required style="padding: 12px; border-radius: 8px;"></textarea>
                                     </div>
 
                                     <div class="col-md-12 mt-4">
-                                        <button type="submit" class="btn btn-primary px-5 py-3"
-                                            style="border-radius: 8px; font-weight: 600;">Send Message</button>
+                                        <button type="submit" class="btn btn-primary px-5 py-3" style="border-radius: 8px; font-weight: 600;">Send Message</button>
                                     </div>
 
                                 </div>
