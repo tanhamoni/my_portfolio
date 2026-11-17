@@ -776,6 +776,102 @@
             </div>
 
         </section>
+        <!-- Contact Section -->
+        <section id="contact" class="contact section py-5">
 
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Contact</h2>
+                <p>{{ $contact?->contact_description ?? 'Have a project idea or a business challenge? Let’s talk.' }}</p>
+            </div>
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-5">
+                        <div class="info-wrap"
+                            style="background: #f8f9fa; padding: 30px; border-radius: 15px; height: 100%;">
+
+                            <h3 class="mb-4">{{ $contact?->form_title ?? 'Get in Touch' }}</h3>
+                            <p class="mb-4 text-muted">{{ $contact?->form_description }}</p>
+
+                            @if ($contact?->location)
+                                <div class="info-item d-flex mb-3">
+                                    <i class="bi bi-geo-alt fs-4 text-primary me-3"></i>
+                                    <div>
+                                        <h4>Location:</h4>
+                                        <p>{{ $contact->location }}{{ $contact?->country ? ', ' . $contact->country : '' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if ($contact?->email)
+                                <div class="info-item d-flex mb-3">
+                                    <i class="bi bi-envelope fs-4 text-primary me-3"></i>
+                                    <div>
+                                        <h4>Email:</h4>
+                                        <p>{{ $contact->email }}</p>
+                                        @if ($contact?->email2)
+                                            <p>{{ $contact->email2 }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if ($contact?->phone)
+                                <div class="info-item d-flex">
+                                    <i class="bi bi-phone fs-4 text-primary me-3"></i>
+                                    <div>
+                                        <h4>Call:</h4>
+                                        <p>{{ $contact->phone }}</p>
+                                        @if ($contact?->phone2)
+                                            <p>{{ $contact->phone2 }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <form action="#" method="post" class="php-email-form"
+                            style="background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.05);">
+                            @csrf
+                            <div class="row gy-4">
+
+                                <div class="col-md-6">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name"
+                                        required style="padding: 12px;">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                        required style="padding: 12px;">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                        required style="padding: 12px;">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required style="padding: 12px;"></textarea>
+                                </div>
+
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
     </main>
 @endsection
