@@ -60,8 +60,9 @@
                     <div class="mb-3">
                         <label class="form-label">Technology *</label>
 
-                        <input type="text" name="technology" class="form-control"
-                            value="{{ old('technology', $project->technology) }}" required>
+                        <input type="text" name="technology_used" class="form-control"
+                            value="{{ old('technology_used', $project->technology_used ?? $project->technology) }}"
+                            required>
                     </div>
 
                     <div class="mb-3">
@@ -115,8 +116,13 @@
                             </label>
 
                             <div>
-                                <img src="{{ asset('storage/projects/' . $project->image) }}" alt="{{ $project->title }}"
-                                    width="200" class="img-thumbnail" style="max-height:150px;object-fit:cover;">
+                                @php
+                                    $currentImgUrl = filter_var($project->image, FILTER_VALIDATE_URL)
+                                        ? $project->image
+                                        : asset('storage/projects/' . $project->image);
+                                @endphp
+                                <img src="{{ $currentImgUrl }}" alt="{{ $project->title }}" width="200"
+                                    class="img-thumbnail" style="max-height:150px;object-fit:cover;">
                             </div>
                         </div>
                     @endif
